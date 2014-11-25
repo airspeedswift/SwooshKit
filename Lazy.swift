@@ -14,9 +14,12 @@ public struct MapSomeSequenceView<Base: SequenceType, T> {
 }
 
 public extension MapSomeSequenceView: SequenceType {
-    typealias Generator = GeneratorOf<T>
+    public typealias Generator = GeneratorOf<T>
 
-    func generate() -> Generator {
+    /// Return a *generator* over the elements of this *sequence*.
+    ///
+    /// Complexity: O(1)
+    public func generate() -> Generator {
         var g = _base.generate()
         // GeneratorOf is a helper that takes a
         // closure and calls it to generate each
