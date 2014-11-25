@@ -21,3 +21,10 @@ extension MapSomeSequenceView: SequenceType {
         }
     }
 }
+
+extension LazyBidirectionalCollection {
+    func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazyBidirectionalCollection<S>,U>> {
+        return lazy(MapSomeSequenceView(_base: self, _transform: transform))
+    }
+}
+
