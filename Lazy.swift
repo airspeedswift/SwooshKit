@@ -1,9 +1,19 @@
-struct MapSomeSequenceView<Base: SequenceType, T> {
+/// A `SequenceType` whose elements consist of those in a `Base`
+/// `SequenceType` passed through a transform function returning `T?`,
+/// where the result of the transform is not nil.
+/// These elements are computed lazily, each time they're read, by
+/// calling the transform function on a base element.
+public struct MapSomeSequenceView<Base: SequenceType, T> {
     private let _base: Base
     private let _transform: (Base.Generator.Element) -> T?
+    
+    private init(base: Base, transform: (Base.Generator.Element) -> T?) {
+        _base = base
+        _transform = transform
+    }
 }
 
-extension MapSomeSequenceView: SequenceType {
+public extension MapSomeSequenceView: SequenceType {
     typealias Generator = GeneratorOf<T>
 
     func generate() -> Generator {
