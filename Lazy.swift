@@ -13,7 +13,7 @@ public struct MapSomeSequenceView<Base: SequenceType, T> {
     }
 }
 
-public extension MapSomeSequenceView: SequenceType {
+extension MapSomeSequenceView: SequenceType {
     public typealias Generator = GeneratorOf<T>
 
     /// Return a *generator* over the elements of this *sequence*.
@@ -37,7 +37,7 @@ public extension MapSomeSequenceView: SequenceType {
 
 extension LazyBidirectionalCollection {
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazyBidirectionalCollection<S>,U>> {
-        return lazy(MapSomeSequenceView(_base: self, _transform: transform))
+        return lazy(MapSomeSequenceView(base: self, transform: transform))
     }
 }
 
