@@ -33,24 +33,32 @@ extension MapSomeSequenceView: SequenceType {
 }
 
 extension LazySequence {
+    /// Return an collection containing the results of mapping `transform`
+    /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazySequence<S>,U>> {
         return lazy(MapSomeSequenceView(base: self, transform: transform))
     }
 }
 
 extension LazyForwardCollection {
+    /// Return an collection containing the results of mapping `transform`
+    /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazyForwardCollection<S>,U>> {
         return lazy(MapSomeSequenceView(base: self, transform: transform))
     }
 }
 
 extension LazyBidirectionalCollection {
+    /// Return an collection containing the results of mapping `transform`
+    /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazyBidirectionalCollection<S>,U>> {
         return lazy(MapSomeSequenceView(base: self, transform: transform))
     }
 }
 
 extension LazyRandomAccessCollection {
+    /// Return an collection containing the results of mapping `transform`
+    /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazyRandomAccessCollection<S>,U>> {
         return lazy(MapSomeSequenceView(base: self, transform: transform))
     }
@@ -90,24 +98,44 @@ extension AccumulateSequenceView: SequenceType {
 }
 
 extension LazySequence {
+    /// Return an collection containing the results of mapping `combine`
+    /// over each element of `source`, carrying the result forward to combine
+    /// with the next element.  `initial` becomes the first element of the result.
+    ///
+    /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
     func accumulate<U>(initial: U, combine: (U, S.Generator.Element) -> U) -> LazySequence<AccumulateSequenceView<LazySequence<S>,U>> {
         return lazy(AccumulateSequenceView(base: self, initial: initial, combine: combine))
     }
 }
 
 extension LazyForwardCollection {
+    /// Return an collection containing the results of mapping `combine`
+    /// over each element of `source`, carrying the result forward to combine
+    /// with the next element.  `initial` becomes the first element of the result.
+    ///
+    /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
     func accumulate<U>(initial: U, combine: (U, S.Generator.Element) -> U) -> LazySequence<AccumulateSequenceView<LazyForwardCollection<S>,U>> {
         return lazy(AccumulateSequenceView(base: self, initial: initial, combine: combine))
     }
 }
 
 extension LazyBidirectionalCollection {
+    /// Return an collection containing the results of mapping `combine`
+    /// over each element of `source`, carrying the result forward to combine
+    /// with the next element.  `initial` becomes the first element of the result.
+    ///
+    /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
     func accumulate<U>(initial: U, combine: (U, S.Generator.Element) -> U) -> LazySequence<AccumulateSequenceView<LazyBidirectionalCollection<S>,U>> {
         return lazy(AccumulateSequenceView(base: self, initial: initial, combine: combine))
     }
 }
 
 extension LazyRandomAccessCollection {
+    /// Return an collection containing the results of mapping `combine`
+    /// over each element of `source`, carrying the result forward to combine
+    /// with the next element.  `initial` becomes the first element of the result.
+    ///
+    /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
     func accumulate<U>(initial: U, combine: (U, S.Generator.Element) -> U) -> LazySequence<AccumulateSequenceView<LazyRandomAccessCollection<S>,U>> {
         return lazy(AccumulateSequenceView(base: self, initial: initial, combine: combine))
     }

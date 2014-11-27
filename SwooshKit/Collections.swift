@@ -1,7 +1,7 @@
 
 /// Return an collection containing the results of mapping `transform`
 /// over `source`, when transform does not return nil.
-func mapSome<S: SequenceType, C: ExtensibleCollectionType>(source: S, transform: S.Generator.Element -> C.Generator.Element?) -> C {
+public func mapSome<S: SequenceType, C: ExtensibleCollectionType>(source: S, transform: S.Generator.Element -> C.Generator.Element?) -> C {
     var result = C()
     for x in source {
         if let y = transform(x) {
@@ -13,7 +13,7 @@ func mapSome<S: SequenceType, C: ExtensibleCollectionType>(source: S, transform:
 
 /// Return an collection containing the results of mapping `transform`
 /// over `source`, when transform does not return nil.
-func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Element -> T?) -> [T] {
+public func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Element -> T?) -> [T] {
     return mapSome(source, transform)
 }
 
@@ -22,7 +22,7 @@ func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Element -> T?
 /// with the next element.  `initial` becomes the first element of the result.
 ///
 /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
-func accumulate
+public func accumulate
   <S: SequenceType, C: ExtensibleCollectionType>
   (source: S, var initial: C.Generator.Element, combine: (C.Generator.Element, S.Generator.Element) -> C.Generator.Element)
   -> C {
@@ -40,7 +40,7 @@ func accumulate
 /// with the next element.  `initial` becomes the first element of the result.
 ///
 /// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
-func accumulate<S: SequenceType, U>
+public func accumulate<S: SequenceType, U>
   (source: S, initial: U, combine: (U, S.Generator.Element)->U)
   -> [U] {
     return accumulate(source, initial, combine)

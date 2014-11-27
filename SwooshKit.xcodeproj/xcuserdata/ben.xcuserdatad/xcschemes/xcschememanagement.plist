@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>SwooshKit-Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>SwooshKit-iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B587BA561A27773500BD85F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B587BA681A27782A00BD85F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B587BA721A27782A00BD85F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B5B2C5281A2764A1002A9BA3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B5B2C5331A2764A1002A9BA3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
