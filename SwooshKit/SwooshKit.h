@@ -2,7 +2,6 @@
 //  SwooshKit.h
 //  SwooshKit
 //
-//  Created by Ben Cohen on 11/27/14.
 //  Copyright (c) 2014 Airspeed Velocity. All rights reserved.
 //
 
