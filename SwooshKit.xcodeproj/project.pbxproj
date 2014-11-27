@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B538C27D1A27864F007B0B43 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5451A2768AB002A9BA3 /* Collections.swift */; };
+		B538C27E1A27864F007B0B43 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5461A2768AB002A9BA3 /* Functions.swift */; };
+		B538C27F1A27864F007B0B43 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5471A2768AB002A9BA3 /* Lazy.swift */; };
+		B538C2801A278656007B0B43 /* SwooshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B538C2811A278AEF007B0B43 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C53B1A2764A1002A9BA3 /* CollectionTests.swift */; };
 		B587BA741A27782B00BD85F3 /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B587BA691A27782A00BD85F3 /* SwooshKit.framework */; };
 		B5B2C52F1A2764A1002A9BA3 /* SwooshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5B2C5351A2764A1002A9BA3 /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */; };
@@ -145,6 +150,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B538C2801A278656007B0B43 /* SwooshKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +316,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B538C27D1A27864F007B0B43 /* Collections.swift in Sources */,
+				B538C27E1A27864F007B0B43 /* Functions.swift in Sources */,
+				B538C27F1A27864F007B0B43 /* Lazy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B538C2811A278AEF007B0B43 /* CollectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +419,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SwooshKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -424,7 +434,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SwooshKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -546,6 +556,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
