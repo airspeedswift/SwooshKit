@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B538C27D1A27864F007B0B43 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5451A2768AB002A9BA3 /* Collections.swift */; };
-		B538C27E1A27864F007B0B43 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5461A2768AB002A9BA3 /* Functions.swift */; };
-		B538C27F1A27864F007B0B43 /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5471A2768AB002A9BA3 /* Lazy.swift */; };
-		B538C2801A278656007B0B43 /* SwooshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B538C2811A278AEF007B0B43 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C53B1A2764A1002A9BA3 /* CollectionTests.swift */; };
-		B587BA741A27782B00BD85F3 /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B587BA691A27782A00BD85F3 /* SwooshKit.framework */; };
 		B5B2C52F1A2764A1002A9BA3 /* SwooshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5B2C5351A2764A1002A9BA3 /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */; };
 		B5B2C53C1A2764A1002A9BA3 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C53B1A2764A1002A9BA3 /* CollectionTests.swift */; };
@@ -22,13 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B587BA751A27782B00BD85F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5B2C5201A2764A1002A9BA3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B587BA681A27782A00BD85F3;
-			remoteInfo = SwooshKit;
-		};
 		B5B2C5361A2764A1002A9BA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5B2C5201A2764A1002A9BA3 /* Project object */;
@@ -39,8 +26,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B587BA691A27782A00BD85F3 /* SwooshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwooshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B587BA731A27782A00BD85F3 /* SwooshKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwooshKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwooshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B2C52D1A2764A1002A9BA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwooshKit.h; sourceTree = "<group>"; };
@@ -53,21 +38,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B587BA651A27782A00BD85F3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B587BA701A27782A00BD85F3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B587BA741A27782B00BD85F3 /* SwooshKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5B2C5251A2764A1002A9BA3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,8 +70,6 @@
 			children = (
 				B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */,
 				B5B2C5341A2764A1002A9BA3 /* SwooshKit-MacTests.xctest */,
-				B587BA691A27782A00BD85F3 /* SwooshKit.framework */,
-				B587BA731A27782A00BD85F3 /* SwooshKit-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,14 +114,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		B587BA661A27782A00BD85F3 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B538C2801A278656007B0B43 /* SwooshKit.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5B2C5261A2764A1002A9BA3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,42 +125,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B587BA681A27782A00BD85F3 /* SwooshKit-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B587BA7C1A27782B00BD85F3 /* Build configuration list for PBXNativeTarget "SwooshKit-iOS" */;
-			buildPhases = (
-				B587BA641A27782A00BD85F3 /* Sources */,
-				B587BA651A27782A00BD85F3 /* Frameworks */,
-				B587BA661A27782A00BD85F3 /* Headers */,
-				B587BA671A27782A00BD85F3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SwooshKit-iOS";
-			productName = SwooshKit;
-			productReference = B587BA691A27782A00BD85F3 /* SwooshKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		B587BA721A27782A00BD85F3 /* SwooshKit-iOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B587BA7F1A27782B00BD85F3 /* Build configuration list for PBXNativeTarget "SwooshKit-iOSTests" */;
-			buildPhases = (
-				B587BA6F1A27782A00BD85F3 /* Sources */,
-				B587BA701A27782A00BD85F3 /* Frameworks */,
-				B587BA711A27782A00BD85F3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B587BA761A27782B00BD85F3 /* PBXTargetDependency */,
-			);
-			name = "SwooshKit-iOSTests";
-			productName = SwooshKitTests;
-			productReference = B587BA731A27782A00BD85F3 /* SwooshKit-iOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		B5B2C5281A2764A1002A9BA3 /* SwooshKit-Mac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5B2C53F1A2764A1002A9BA3 /* Build configuration list for PBXNativeTarget "SwooshKit-Mac" */;
@@ -246,12 +170,6 @@
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Airspeed Velocity";
 				TargetAttributes = {
-					B587BA681A27782A00BD85F3 = {
-						CreatedOnToolsVersion = 6.2;
-					};
-					B587BA721A27782A00BD85F3 = {
-						CreatedOnToolsVersion = 6.2;
-					};
 					B5B2C5281A2764A1002A9BA3 = {
 						CreatedOnToolsVersion = 6.2;
 					};
@@ -272,8 +190,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B587BA681A27782A00BD85F3 /* SwooshKit-iOS */,
-				B587BA721A27782A00BD85F3 /* SwooshKit-iOSTests */,
 				B5B2C5281A2764A1002A9BA3 /* SwooshKit-Mac */,
 				B5B2C5331A2764A1002A9BA3 /* SwooshKit-MacTests */,
 			);
@@ -281,20 +197,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B587BA671A27782A00BD85F3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B587BA711A27782A00BD85F3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5B2C5271A2764A1002A9BA3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -312,24 +214,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B587BA641A27782A00BD85F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B538C27D1A27864F007B0B43 /* Collections.swift in Sources */,
-				B538C27E1A27864F007B0B43 /* Functions.swift in Sources */,
-				B538C27F1A27864F007B0B43 /* Lazy.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B587BA6F1A27782A00BD85F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B538C2811A278AEF007B0B43 /* CollectionTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5B2C5241A2764A1002A9BA3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,11 +235,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B587BA761A27782B00BD85F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B587BA681A27782A00BD85F3 /* SwooshKit-iOS */;
-			targetProxy = B587BA751A27782B00BD85F3 /* PBXContainerItemProxy */;
-		};
 		B5B2C5371A2764A1002A9BA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B5B2C5281A2764A1002A9BA3 /* SwooshKit-Mac */;
@@ -364,84 +243,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		B587BA7D1A27782B00BD85F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwooshKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		B587BA7E1A27782B00BD85F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwooshKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		B587BA801A27782B00BD85F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwooshKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		B587BA811A27782B00BD85F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwooshKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		B5B2C53D1A2764A1002A9BA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -477,7 +278,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -517,7 +318,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -595,24 +396,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B587BA7C1A27782B00BD85F3 /* Build configuration list for PBXNativeTarget "SwooshKit-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B587BA7D1A27782B00BD85F3 /* Debug */,
-				B587BA7E1A27782B00BD85F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B587BA7F1A27782B00BD85F3 /* Build configuration list for PBXNativeTarget "SwooshKit-iOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B587BA801A27782B00BD85F3 /* Debug */,
-				B587BA811A27782B00BD85F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B5B2C5231A2764A1002A9BA3 /* Build configuration list for PBXProject "SwooshKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
