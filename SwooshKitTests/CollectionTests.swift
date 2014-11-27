@@ -2,7 +2,7 @@
 //  SwooshKitTests.swift
 //  SwooshKitTests
 //
-//  Created by Ben Cohen on 11/27/14.
+//  Created by Airspeed Velocity on 11/27/14.
 //  Copyright (c) 2014 Airspeed Velocity. All rights reserved.
 //
 
