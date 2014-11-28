@@ -1,4 +1,4 @@
 SwooshKit
 =========
 
-A library of the resuseable Swift functions found in AirspeedVelocity.net posts, plus related code.
+A library of the reuseable Swift functions found in AirspeedVelocity.net posts, plus related code.
