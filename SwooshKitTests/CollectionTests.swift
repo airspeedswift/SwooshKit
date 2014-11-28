@@ -38,4 +38,10 @@ class SwooshKitTests: XCTestCase {
         XCTAssert(equal([0,1,3,6], accumulate([1,2,3], 0, +)))
         XCTAssert(equal([0], accumulate([], 0, +)))
     }
+    
+    func testDropFirst() {
+        XCTAssert(equal([2,3,4],dropFirst(stride(from: 1, to: 5, by: 1))))
+        XCTAssert(equal([],dropFirst(stride(from: 1, to: 2, by: 1))))
+        XCTAssert(equal([],dropFirst(stride(from: 1, to: 1, by: 1))))
+    }
 }
