@@ -1,47 +1,85 @@
 
-/// Return an collection containing the results of mapping `transform`
-/// over `source`, when transform does not return nil.
-public func mapSome<S: SequenceType, C: ExtensibleCollectionType>(source: S, transform: S.Generator.Element -> C.Generator.Element?) -> C {
-    var result = C()
-    for x in source {
-        if let y = transform(x) {
-            result.append(y)
+
+extension Dictionary {
+    /// Construct from an arbitrary sequence with elements of the tupe `(Key,Value)`
+    init<S: SequenceType
+        where S.Generator.Element == Element>
+        (_ seq: S) {
+            self.init()
+            self.merge(seq)
+    }
+
+    /// Merge a sequence of `(Key,Value)` tuples into the dictionary
+    mutating func merge<S: SequenceType
+        where S.Generator.Element == Element>
+        (seq: S) {
+            var gen = seq.generate()
+            while let (k: Key, v: Value) = gen.next() {
+                self[k] = v
+            }
+    }
+}
+
+/// View that allows you to treate a tuple as a read-only collection
+struct TupleCollectionView<T>: CollectionType {
+    private let _mirror: MirrorType
+    init(_ tuple: T) {
+        _mirror = reflect(tuple)
+    }
+    
+    var startIndex: Int { return 0 }
+    
+    var endIndex: Int {
+        switch _mirror.disposition {
+        case .Tuple:
+            return _mirror.count
+        default:
+            return 1
         }
     }
-    return result
-}
-
-/// Return an collection containing the results of mapping `transform`
-/// over `source`, when transform does not return nil.
-public func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Element -> T?) -> [T] {
-    return mapSome(source, transform)
-}
-
-/// Return an collection containing the results of mapping `combine`
-/// over each element of `source`, carrying the result forward to combine
-/// with the next element.  `initial` becomes the first element of the result.
-///
-/// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
-public func accumulate
-  <S: SequenceType, C: ExtensibleCollectionType>
-  (source: S, var initial: C.Generator.Element, combine: (C.Generator.Element, S.Generator.Element) -> C.Generator.Element)
-  -> C {
-    var result = C()
-    result.append(initial)
-    for x in source {
-        initial = combine(initial, x)
-        result.append(initial)
+    
+    subscript(idx: Int) -> Any {
+        switch _mirror.disposition {
+        case .Tuple:
+            let (_, val) = _mirror[idx]
+            return val.value
+        default:
+            return _mirror.value
+        }
     }
-    return result
+    
+    typealias GeneratorType
+        = IndexingGenerator<TupleCollectionView>
+    
+    func generate() -> GeneratorType {
+        return IndexingGenerator(self)
+    }
 }
 
-/// Return an collection containing the results of mapping `combine`
-/// over each element of `source`, carrying the result forward to combine
-/// with the next element.  `initial` becomes the first element of the result.
-///
-/// e.g. `combine([1,2,3],0,+)` returns `[0,1,3,6]`
-public func accumulate<S: SequenceType, U>
-  (source: S, initial: U, combine: (U, S.Generator.Element)->U)
-  -> [U] {
-    return accumulate(source, initial, combine)
+/// View that presents a collection of a subrange of another collection
+struct SubrangeCollectionView<Base: CollectionType>: CollectionType {
+    private let _base: Base
+    private let _range: Range<Base.Index>
+    init(_ base: Base, subrange: Range<Base.Index>) {
+        _base = base
+        _range = subrange
+    }
+    
+    var startIndex: Base.Index {
+        return _range.startIndex
+    }
+    var endIndex: Base.Index {
+        return _range.endIndex
+    }
+    
+    subscript(idx: Base.Index)
+        -> Base.Generator.Element {
+            return _base[idx]
+    }
+    
+    typealias Generator
+        = IndexingGenerator<SubrangeCollectionView>
+    func generate() -> Generator {
+        return IndexingGenerator(self)
+    }
 }

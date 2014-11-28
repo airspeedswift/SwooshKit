@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B50F0E111A27BE880058C4DE /* SwooshKit-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B50F0E101A27BE880058C4DE /* SwooshKit-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B50F0E171A27BE880058C4DE /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50F0E0C1A27BE880058C4DE /* SwooshKit.framework */; };
-		B50F0E1E1A27BE880058C4DE /* SwooshKit_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F0E1D1A27BE880058C4DE /* SwooshKit_iOSTests.swift */; };
+		B55FAF0B1A27EFAB0082A36F /* CollectionAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */; };
+		B55FAF0C1A27EFC80082A36F /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5451A2768AB002A9BA3 /* Collections.swift */; };
+		B55FAF0D1A27EFC80082A36F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5461A2768AB002A9BA3 /* Functions.swift */; };
+		B55FAF0E1A27EFC80082A36F /* Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5471A2768AB002A9BA3 /* Lazy.swift */; };
+		B55FAF0F1A27EFF20082A36F /* CollectionAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */; };
+		B55FAF111A27F1240082A36F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55FAF101A27F1240082A36F /* Operators.swift */; };
+		B55FAF121A27F1240082A36F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55FAF101A27F1240082A36F /* Operators.swift */; };
 		B5B2C52F1A2764A1002A9BA3 /* SwooshKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B5B2C5351A2764A1002A9BA3 /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */; };
 		B5B2C53C1A2764A1002A9BA3 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C53B1A2764A1002A9BA3 /* CollectionTests.swift */; };
@@ -37,11 +42,9 @@
 
 /* Begin PBXFileReference section */
 		B50F0E0C1A27BE880058C4DE /* SwooshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwooshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B50F0E0F1A27BE880058C4DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B50F0E101A27BE880058C4DE /* SwooshKit-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwooshKit-iOS.h"; sourceTree = "<group>"; };
 		B50F0E161A27BE880058C4DE /* SwooshKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwooshKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B50F0E1C1A27BE880058C4DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B50F0E1D1A27BE880058C4DE /* SwooshKit_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwooshKit_iOSTests.swift; sourceTree = "<group>"; };
+		B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionAlgorithms.swift; sourceTree = "<group>"; };
+		B55FAF101A27F1240082A36F /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		B5B2C5291A2764A1002A9BA3 /* SwooshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwooshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5B2C52D1A2764A1002A9BA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwooshKit.h; sourceTree = "<group>"; };
@@ -87,47 +90,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B50F0E0D1A27BE880058C4DE /* SwooshKit-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				B50F0E101A27BE880058C4DE /* SwooshKit-iOS.h */,
-				B50F0E0E1A27BE880058C4DE /* Supporting Files */,
-			);
-			path = "SwooshKit-iOS";
-			sourceTree = "<group>";
-		};
-		B50F0E0E1A27BE880058C4DE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B50F0E0F1A27BE880058C4DE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B50F0E1A1A27BE880058C4DE /* SwooshKit-iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				B50F0E1D1A27BE880058C4DE /* SwooshKit_iOSTests.swift */,
-				B50F0E1B1A27BE880058C4DE /* Supporting Files */,
-			);
-			path = "SwooshKit-iOSTests";
-			sourceTree = "<group>";
-		};
-		B50F0E1B1A27BE880058C4DE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B50F0E1C1A27BE880058C4DE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		B5B2C51F1A2764A1002A9BA3 = {
 			isa = PBXGroup;
 			children = (
 				B5B2C52B1A2764A1002A9BA3 /* SwooshKit */,
 				B5B2C5381A2764A1002A9BA3 /* SwooshKitTests */,
-				B50F0E0D1A27BE880058C4DE /* SwooshKit-iOS */,
-				B50F0E1A1A27BE880058C4DE /* SwooshKit-iOSTests */,
 				B5B2C52A1A2764A1002A9BA3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -146,6 +113,8 @@
 		B5B2C52B1A2764A1002A9BA3 /* SwooshKit */ = {
 			isa = PBXGroup;
 			children = (
+				B55FAF101A27F1240082A36F /* Operators.swift */,
+				B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */,
 				B5B2C52E1A2764A1002A9BA3 /* SwooshKit.h */,
 				B5B2C5451A2768AB002A9BA3 /* Collections.swift */,
 				B5B2C5461A2768AB002A9BA3 /* Functions.swift */,
@@ -187,7 +156,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B50F0E111A27BE880058C4DE /* SwooshKit-iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +321,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55FAF0F1A27EFF20082A36F /* CollectionAlgorithms.swift in Sources */,
+				B55FAF121A27F1240082A36F /* Operators.swift in Sources */,
+				B55FAF0C1A27EFC80082A36F /* Collections.swift in Sources */,
+				B55FAF0D1A27EFC80082A36F /* Functions.swift in Sources */,
+				B55FAF0E1A27EFC80082A36F /* Lazy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +333,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B50F0E1E1A27BE880058C4DE /* SwooshKit_iOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,8 +341,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B2C5481A2768AB002A9BA3 /* Collections.swift in Sources */,
+				B55FAF111A27F1240082A36F /* Operators.swift in Sources */,
 				B5B2C54A1A2768AB002A9BA3 /* Lazy.swift in Sources */,
 				B5B2C5491A2768AB002A9BA3 /* Functions.swift in Sources */,
+				B55FAF0B1A27EFAB0082A36F /* CollectionAlgorithms.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +610,7 @@
 				B50F0E201A27BE880058C4DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B50F0E241A27BE880058C4DE /* Build configuration list for PBXNativeTarget "SwooshKit-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -644,6 +619,7 @@
 				B50F0E221A27BE880058C4DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5B2C5231A2764A1002A9BA3 /* Build configuration list for PBXProject "SwooshKit" */ = {
 			isa = XCConfigurationList;
