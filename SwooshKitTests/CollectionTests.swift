@@ -9,7 +9,7 @@
 import SwooshKit
 import XCTest
 
-class SwooshKitTests: XCTestCase {
+class SwooshKitCollectionTests: XCTestCase {
 
     func testMapSome() {
         let strToInt = { (s: String)->Int? in s.toInt() }

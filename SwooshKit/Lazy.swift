@@ -141,6 +141,7 @@ extension LazyRandomAccessCollection {
     }
 }
 
+// TODO: Versions of these that return map view collections not sequences
 
 extension LazySequence {
     /// Map only those values if their index in the sequence matches a predicate,
