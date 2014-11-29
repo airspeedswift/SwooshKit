@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B50134CA1A28EB240073A87D /* FunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50134C91A28EB240073A87D /* FunctionTests.swift */; };
+		B50134CB1A28EB240073A87D /* FunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50134C91A28EB240073A87D /* FunctionTests.swift */; };
 		B50F0E171A27BE880058C4DE /* SwooshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50F0E0C1A27BE880058C4DE /* SwooshKit.framework */; };
 		B55FAF0B1A27EFAB0082A36F /* CollectionAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */; };
 		B55FAF0C1A27EFC80082A36F /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B2C5451A2768AB002A9BA3 /* Collections.swift */; };
@@ -41,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B50134C91A28EB240073A87D /* FunctionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionTests.swift; sourceTree = "<group>"; };
 		B50F0E0C1A27BE880058C4DE /* SwooshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwooshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50F0E161A27BE880058C4DE /* SwooshKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwooshKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55FAF0A1A27EFAB0082A36F /* CollectionAlgorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionAlgorithms.swift; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				B5B2C53B1A2764A1002A9BA3 /* CollectionTests.swift */,
+				B50134C91A28EB240073A87D /* FunctionTests.swift */,
 				B5B2C5391A2764A1002A9BA3 /* Supporting Files */,
 			);
 			path = SwooshKitTests;
@@ -333,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B50134CB1A28EB240073A87D /* FunctionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5B2C53C1A2764A1002A9BA3 /* CollectionTests.swift in Sources */,
+				B50134CA1A28EB240073A87D /* FunctionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +424,7 @@
 		B50F0E211A27BE880058C4DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -431,12 +438,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		B50F0E221A27BE880058C4DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

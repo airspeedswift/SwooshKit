@@ -15,6 +15,8 @@ public func toString(c: Character) -> String {
 let digits: [Character] = ["0","1","2","3","4","5","6","7","8","9"]
 
 public func toInt(c: Character) -> Int? {
+    // this may not be the most efficient method but
+    // it's the most entertaining one
     return find(digits, c)
 }
 
@@ -30,4 +32,7 @@ public func double<I: IntegerType>(i: I) -> I {
     return i * 2
 }
 
+public func sum<S: SequenceType where S.Generator.Element: IntegerType>(nums: S) -> S.Generator.Element {
+    return reduce(nums, 0) { $0.0 + $0.1 }
+}
 

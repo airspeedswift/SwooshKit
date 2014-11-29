@@ -98,4 +98,20 @@ func remove
         }
 }
 
+/// A version of dropFirst that works on any sequence.  Note if the passed-in
+/// sequence is not multi-pass, using a sequence vis this will consume the sequence.
+public func dropFirst<S: SequenceType>(seq: S) -> SequenceOf<S.Generator.Element> {
+    return SequenceOf { ()->GeneratorOf<S.Generator.Element> in
+        var g = seq.generate()
+        let first = g.next()
+        // if you prefer your dropFirst to explodinate on empty
+        // sequences, add an assert(first != nil) here...
+        return GeneratorOf {
+            // shouldn't call GeneratorType.next()
+            // after it's returned nil the first time
+            first == nil ? nil : g.next()
+        }
+    }
+}
+
 

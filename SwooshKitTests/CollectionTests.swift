@@ -9,10 +9,14 @@
 import SwooshKit
 import XCTest
 
+<<<<<<< HEAD
 class SwooshKitTests: XCTestCase {
     
     let strToInt = { (s: String)->Int? in s.toInt() }
     let intToStr = { (i: Int)->String in "\(i)" }
+=======
+class SwooshKitCollectionTests: XCTestCase {
+>>>>>>> 4af3e1f8df5f6fd5e539fecbfc7eb299438c6688
 
     func testMapSome() {
         XCTAssert(equal([1,2,3], mapSome(["1","2","3"], strToInt)))
@@ -45,6 +49,7 @@ class SwooshKitTests: XCTestCase {
         XCTAssert(equal([0], accumulate([], 0, +)))
     }
     
+<<<<<<< HEAD
     func testLuhnAlgo() {
         // happens to use several of the functions in this library so good to detect weird type inference issues
         
@@ -58,4 +63,11 @@ class SwooshKitTests: XCTestCase {
 
     }
     
+=======
+    func testDropFirst() {
+        XCTAssert(equal([2,3,4],dropFirst(stride(from: 1, to: 5, by: 1))))
+        XCTAssert(equal([],dropFirst(stride(from: 1, to: 2, by: 1))))
+        XCTAssert(equal([],dropFirst(stride(from: 1, to: 1, by: 1))))
+    }
+>>>>>>> 4af3e1f8df5f6fd5e539fecbfc7eb299438c6688
 }
