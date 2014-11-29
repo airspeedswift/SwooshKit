@@ -13,9 +13,37 @@ public func mapSome<S: SequenceType, C: ExtensibleCollectionType>(source: S, tra
 
 /// Return an collection containing the results of mapping `transform`
 /// over `source`, when transform does not return nil.
+// Specialized version to default to returning an array
 public func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Element -> T?) -> [T] {
     return mapSome(source, transform)
 }
+
+/// Map only those values if their index in the sequence matches a predicate,
+/// leaving other elements untransformed
+func mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, transform: S.Generator.Element -> S.Generator.Element, ifIndex: Int -> Bool) -> C {
+    var result = C()
+    for (index,value) in enumerate(source) {
+        if ifIndex(index) {
+            result.append(transform(value))
+        }
+        else {
+            result.append(value)
+        }
+    }
+    return result
+}
+
+/// Map only every nth element of a sequence, leaving other elements untransformed
+public func mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, n: Int, transform: S.Generator.Element -> C.Generator.Element) -> C {
+    let isNth = isMultipleOf(n) • inc
+    return mapIfIndex(source, transform, isNth)
+}
+
+///// Map only every nth element of a sequence, leaving other elements untransformed
+//public func mapEveryNth<S: SequenceType>(source: S, n: Int, transform: S.Generator.Element -> S.Generator.Element) -> [S.Generator.Element] {
+//    let isNth = isMultipleOf(n) • inc
+//    return mapIfIndex(source, transform, isNth)
+//}
 
 /// Return an collection containing the results of mapping `combine`
 /// over each element of `source`, carrying the result forward to combine
