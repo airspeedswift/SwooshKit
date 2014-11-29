@@ -1,3 +1,6 @@
+// Unfortunately none of the extensions to the std lib types will
+// be visible outside the library since you can't publicly extend other
+// module's types.
 
 
 extension Dictionary {

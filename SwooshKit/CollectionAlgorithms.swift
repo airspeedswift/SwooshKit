@@ -35,7 +35,7 @@ func mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.E
 
 /// Map only every nth element of a sequence, leaving other elements untransformed
 public func mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, n: Int, transform: S.Generator.Element -> C.Generator.Element) -> C {
-    let isNth = isMultipleOf(n) • inc
+    let isNth = isMultipleOf(n) • successor
     return mapIfIndex(source, transform, isNth)
 }
 

@@ -1,3 +1,10 @@
+
+// Unfortunately none of these extensions to the lazy collections will 
+// be visible outside the library since you can't publicly extend other
+// module's types.
+//
+// But the free functions can be used.
+
 /// A `SequenceType` whose elements consist of those in a `Base`
 /// `SequenceType` passed through a transform function returning `T?`,
 /// where the result of the transform is not nil.
@@ -32,7 +39,7 @@ extension MapSomeSequenceView: SequenceType {
     }
 }
 
-extension LazySequence {
+public extension LazySequence {
     /// Return an collection containing the results of mapping `transform`
     /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazySequence<S>,U>> {
@@ -156,7 +163,7 @@ extension LazySequence {
     
     /// Map only every nth element of a sequence, leaving other elements untransformed
     func mapEveryNth(n: Int, _ transform: (S.Generator.Element) -> S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazySequence<S>>,S.Generator.Element>> {
-        return self.mapIfIndex(transform, isMultipleOf(n) • inc)
+        return self.mapIfIndex(transform, isMultipleOf(n) • successor)
     }
 }
 
@@ -173,7 +180,7 @@ extension LazyForwardCollection {
     
     /// Map only every nth element of a sequence, leaving other elements untransformed
     func mapEveryNth(n: Int, _ transform: (S.Generator.Element) -> S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyForwardCollection<S>>,S.Generator.Element>> {
-        return self.mapIfIndex(transform, isMultipleOf(n) • inc)
+        return self.mapIfIndex(transform, isMultipleOf(n) • successor)
     }
 }
 
@@ -190,7 +197,7 @@ extension LazyBidirectionalCollection {
     
     /// Map only every nth element of a sequence, leaving other elements untransformed
     func mapEveryNth(n: Int, _ transform: (S.Generator.Element) -> S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyBidirectionalCollection<S>>,S.Generator.Element>> {
-        return self.mapIfIndex(transform, isMultipleOf(n) • inc )
+        return self.mapIfIndex(transform, isMultipleOf(n) • successor )
     }
 }
 
@@ -208,7 +215,7 @@ extension LazyRandomAccessCollection {
     
     /// Map only every nth element of a sequence, leaving other elements untransformed
     func mapEveryNth(n: Int, _ transform: (S.Generator.Element) -> S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<S>>,S.Generator.Element>> {
-        return self.mapIfIndex(transform, isMultipleOf(n) • inc )
+        return self.mapIfIndex(transform, isMultipleOf(n) • successor )
     }
 }
 
@@ -216,76 +223,76 @@ extension LazyRandomAccessCollection {
 
 // Free versions of lazy member functions:
 
-func reverse<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>) -> LazyBidirectionalCollection<BidirectionalReverseView<C>> {
+public func reverse<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>) -> LazyBidirectionalCollection<BidirectionalReverseView<C>> {
     return source.reverse()
 }
 
 // note, LazyRandomAccessCollection.reverse returns a LazyBidirectionalCollection NOT another LazyRandomAccessCollection
-func reverse<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>) -> LazyBidirectionalCollection<RandomAccessReverseView<C>> {
+public func reverse<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>) -> LazyBidirectionalCollection<RandomAccessReverseView<C>> {
     return source.reverse()
 }
 
-func map<S: SequenceType, U>(source: LazySequence<S>, transform: (S.Generator.Element)->U) -> LazySequence<MapSequenceView<S,U>> {
+public func map<S: SequenceType, U>(source: LazySequence<S>, transform: (S.Generator.Element)->U) -> LazySequence<MapSequenceView<S,U>> {
     return source.map(transform)
 }
 
-func map<C: CollectionType, U>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->U) -> LazyForwardCollection<MapCollectionView<C,U>> {
+public func map<C: CollectionType, U>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->U) -> LazyForwardCollection<MapCollectionView<C,U>> {
     return source.map(transform)
 }
 
-func map<C: CollectionType, U where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->U) -> LazyBidirectionalCollection<MapCollectionView<C,U>> {
+public func map<C: CollectionType, U where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->U) -> LazyBidirectionalCollection<MapCollectionView<C,U>> {
     return source.map(transform)
 }
 
-func map<C: CollectionType, U where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->U) -> LazyRandomAccessCollection<MapCollectionView<C,U>> {
+public func map<C: CollectionType, U where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->U) -> LazyRandomAccessCollection<MapCollectionView<C,U>> {
     return source.map(transform)
 }
 
-func mapSome<S: SequenceType,U>(source: LazySequence<S>, transform: (S.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazySequence<S>, U>> {
+public func mapSome<S: SequenceType,U>(source: LazySequence<S>, transform: (S.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazySequence<S>, U>> {
     return source.mapSome(transform)
 }
 
-func mapSome<C: CollectionType,U>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyForwardCollection<C>, U>> {
+public func mapSome<C: CollectionType,U>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyForwardCollection<C>, U>> {
     return source.mapSome(transform)
 }
 
-func mapSome<C: CollectionType,U where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyBidirectionalCollection<C>, U>> {
+public func mapSome<C: CollectionType,U where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyBidirectionalCollection<C>, U>> {
     return source.mapSome(transform)
 }
 
-func mapSome<C: CollectionType,U where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyRandomAccessCollection<C>, U>> {
+public func mapSome<C: CollectionType,U where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->U?) -> LazySequence<MapSomeSequenceView<LazyRandomAccessCollection<C>, U>> {
     return source.mapSome(transform)
 }
 
-func mapEveryNth<S: SequenceType>(source: LazySequence<S>, n: Int, transform: (S.Generator.Element)->S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazySequence<S>>,S.Generator.Element>> {
+public func mapEveryNth<S: SequenceType>(source: LazySequence<S>, n: Int, transform: (S.Generator.Element)->S.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazySequence<S>>,S.Generator.Element>> {
     return source.mapEveryNth(n, transform)
 }
 
-func mapEveryNth<C: CollectionType>(source: LazyForwardCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyForwardCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType>(source: LazyForwardCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyForwardCollection<C>>,C.Generator.Element>> {
     return source.mapEveryNth(n, transform)
 }
 
-func mapEveryNth<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyBidirectionalCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyBidirectionalCollection<C>>,C.Generator.Element>> {
     return source.mapEveryNth(n, transform)
 }
 
-func mapEveryNth<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, n: Int, transform: (C.Generator.Element)->C.Generator.Element) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<C>>,C.Generator.Element>> {
     return source.mapEveryNth(n, transform)
 }
 
-func mapIfIndex<S: SequenceType>(source: LazySequence<S>, transform: (S.Generator.Element)->S.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazySequence<S>>,S.Generator.Element>> {
+public func mapIfIndex<S: SequenceType>(source: LazySequence<S>, transform: (S.Generator.Element)->S.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazySequence<S>>,S.Generator.Element>> {
     return source.mapIfIndex(transform, ifIndex)
 }
 
-func mapEveryNth<C: CollectionType>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyForwardCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType>(source: LazyForwardCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyForwardCollection<C>>,C.Generator.Element>> {
     return source.mapIfIndex(transform, ifIndex)
 }
 
-func mapEveryNth<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyBidirectionalCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType where C.Index: BidirectionalIndexType>(source: LazyBidirectionalCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyBidirectionalCollection<C>>,C.Generator.Element>> {
     return source.mapIfIndex(transform, ifIndex)
 }
 
-func mapEveryNth<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<C>>,C.Generator.Element>> {
+public func mapEveryNth<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<C>>,C.Generator.Element>> {
     return source.mapIfIndex(transform, ifIndex)
 }
 

@@ -24,7 +24,7 @@ public func isMultipleOf<T: IntegerType>(of: T)->T->Bool {
     return { $0 % of == 0 }
 }
 
-public func inc<I: IntegerType>(i: I) -> I {
+public func successor<I: _Incrementable>(i: I) -> I {
     return i.successor()
 }
 
