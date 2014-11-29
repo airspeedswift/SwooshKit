@@ -39,12 +39,6 @@ public func mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Gen
     return mapIfIndex(source, transform, isNth)
 }
 
-///// Map only every nth element of a sequence, leaving other elements untransformed
-//public func mapEveryNth<S: SequenceType>(source: S, n: Int, transform: S.Generator.Element -> S.Generator.Element) -> [S.Generator.Element] {
-//    let isNth = isMultipleOf(n) • inc
-//    return mapIfIndex(source, transform, isNth)
-//}
-
 /// Return an collection containing the results of mapping `combine`
 /// over each element of `source`, carrying the result forward to combine
 /// with the next element.  `initial` becomes the first element of the result.

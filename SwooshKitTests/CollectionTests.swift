@@ -9,14 +9,10 @@
 import SwooshKit
 import XCTest
 
-<<<<<<< HEAD
-class SwooshKitTests: XCTestCase {
+class SwooshKitCollectionTests: XCTestCase {
     
     let strToInt = { (s: String)->Int? in s.toInt() }
     let intToStr = { (i: Int)->String in "\(i)" }
-=======
-class SwooshKitCollectionTests: XCTestCase {
->>>>>>> 4af3e1f8df5f6fd5e539fecbfc7eb299438c6688
 
     func testMapSome() {
         XCTAssert(equal([1,2,3], mapSome(["1","2","3"], strToInt)))
@@ -49,25 +45,26 @@ class SwooshKitCollectionTests: XCTestCase {
         XCTAssert(equal([0], accumulate([], 0, +)))
     }
     
-<<<<<<< HEAD
     func testLuhnAlgo() {
         // happens to use several of the functions in this library so good to detect weird type inference issues
         
         let extractDigits = { (s: String)->[Int] in mapSome(s, toInt) }
+        
         let combineDoubleDigit = { i in i < 10 ? i : i-9 }
-        let doubleEveryOther = { (ints: [Int])->[Int] in mapEveryNth(ints, 2, combineDoubleDigit • double) }
+        
+        let doubleEveryOther = { (ints: [Int])->[Int] in
+            mapEveryNth(ints, 2, combineDoubleDigit • double)
+        }
         
         let checksum = isMultipleOf(10) • sum • doubleEveryOther • reverse • extractDigits
 
         let ccnum = "4012 8888 8888 1881"
-
+        XCTAssert(checksum(ccnum))
     }
     
-=======
     func testDropFirst() {
         XCTAssert(equal([2,3,4],dropFirst(stride(from: 1, to: 5, by: 1))))
         XCTAssert(equal([],dropFirst(stride(from: 1, to: 2, by: 1))))
         XCTAssert(equal([],dropFirst(stride(from: 1, to: 1, by: 1))))
     }
->>>>>>> 4af3e1f8df5f6fd5e539fecbfc7eb299438c6688
 }
