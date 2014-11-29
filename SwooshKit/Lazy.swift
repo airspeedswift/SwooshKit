@@ -39,7 +39,7 @@ extension MapSomeSequenceView: SequenceType {
     }
 }
 
-public extension LazySequence {
+extension LazySequence {
     /// Return an collection containing the results of mapping `transform`
     /// over `source`, when transform does not return nil.
     func mapSome<U>(transform: (S.Generator.Element) -> U?) -> LazySequence<MapSomeSequenceView<LazySequence<S>,U>> {
