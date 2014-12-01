@@ -2,5 +2,7 @@
 
 import SwooshKit
 
-mapSome(lazy("12345"), toInt)
+let lms = mapSome(lazy("12345"), toInt)
 
+let mirror = reflect(lms).summary
+//mirror.summary

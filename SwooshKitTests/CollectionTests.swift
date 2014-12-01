@@ -28,6 +28,10 @@ class SwooshKitCollectionTests: XCTestCase {
     }
     
     func testLazyMapSome() {
+        
+        let lms = mapSome(lazy("12345"), toInt)
+        XCTAssertEqual("Swift.LazySequence",reflect(lms).summary)
+        
         XCTAssert(equal([1,2,3], mapSome(lazy(["1","2","3"]), strToInt)))
         XCTAssert(equal([1,2,3], mapSome(lazy(["1", "blah","2","3"]), strToInt)))
         XCTAssert(equal([] as [Int], mapSome(lazy([] as [String]), strToInt)))
@@ -45,21 +49,92 @@ class SwooshKitCollectionTests: XCTestCase {
         XCTAssert(equal([0], accumulate([], 0, +)))
     }
     
+    func testRemove() {
+        let isVowel = { contains("eaoiu", $0) }
+        var s = Array("hello")
+        remove(&s, "e" as Character)
+        XCTAssertEqual("hllo", String(s))
+        s = Array("hello")
+        remove(&s, isVowel)
+        XCTAssertEqual("hll", String(s))
+    }
+    
+    func testFind() {
+        let s = "hello"
+        let idx = find(s,isVowel)
+        XCTAssert(idx != nil)
+        XCTAssertEqual(s.startIndex.successor(), find(s,isVowel)!)
+    }
+    
+    func testEqual() {
+        let eqIntString: (Int,String)->Bool = { i,s in s.toInt().map { $0 == i } ?? false }
+        
+        XCTAssertTrue(equal([1,2,3], ["1","2","3"], eqIntString))
+        XCTAssertTrue(equal(1...3, ["1","2","3"], eqIntString))
+        XCTAssertTrue(equal([Int](),[String](), eqIntString))
+        XCTAssertFalse(equal([1,2,3,4], ["1","2","3"], eqIntString))
+        XCTAssertFalse(equal([1,2,3], ["1","2","3","4"], eqIntString))
+        XCTAssertFalse(equal([1,1,3], ["1","2","3"], eqIntString))
+        XCTAssertFalse(equal([1,2,3], ["1","3","3"], eqIntString))
+    }
+    
     func testLuhnAlgo() {
-        // happens to use several of the functions in this library so good to detect weird type inference issues
+        // happens to use several of the functions in this library so good to
+        // detect weird type inference issues
         
-        let extractDigits = { (s: String)->[Int] in mapSome(s, toInt) }
+        let extractDigits: String -> [Int] = { mapSome($0, toInt) }
         
-        let combineDoubleDigit = { i in i < 10 ? i : i-9 }
+        let doubleAndCombine = { i in i<5 ? i*2 : i*2-9 }
         
-        let doubleEveryOther = { (ints: [Int])->[Int] in
-            mapEveryNth(ints, 2, combineDoubleDigit • double)
-        }
+        let doubleEveryOther: [Int]->[Int] = { mapEveryNth($0, 2, doubleAndCombine) }
         
         let checksum = isMultipleOf(10) • sum • doubleEveryOther • reverse • extractDigits
-
+        
         let ccnum = "4012 8888 8888 1881"
+        
         XCTAssert(checksum(ccnum))
+        XCTAssertFalse(checksum(dropFirst(ccnum)))
+
+        let is_ok: Bool =
+        ccnum
+            |> { mapSome($0, toInt) }
+            |> reverse
+            |> { mapEveryNth($0, 2, doubleAndCombine) }
+            |> sum
+            |> isMultipleOf(10)
+        
+        XCTAssert(is_ok)
+    }
+    
+    func testLazyLuhnAlgo() {
+        let doubleAndCombine = { i in i<5 ? i*2 : i*2-9 }
+        
+        // TODO: a way to check this is lazy all the way through
+        // and not falling back to the eager versions
+
+        let lazy_checksum: String -> Bool =
+              isMultipleOf(10)
+            • sum
+            • { mapEveryNth($0, 2, doubleAndCombine) }
+            // TODO: figure out why the `as` is needed here
+            • { mapSome($0, toInt as Character->Int?) }
+            • reverse
+            • lazy
+        
+        let ccnum = "4012 8888 8888 1881"
+        
+        XCTAssert(lazy_checksum(ccnum))
+        
+        let is_ok =
+            ccnum
+            |> lazy
+            |> reverse
+            |> { mapSome($0, toInt as Character->Int?) }
+            |> { mapEveryNth($0, 2, doubleAndCombine) }
+            |> sum
+            |> isMultipleOf(10)
+        
+        XCTAssert(is_ok)
     }
     
     func testDropFirst() {

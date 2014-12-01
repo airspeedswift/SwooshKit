@@ -18,9 +18,16 @@ public func mapSome<S: SequenceType, T>(source: S, transform: S.Generator.Elemen
     return mapSome(source, transform)
 }
 
-/// Map only those values if their index in the sequence matches a predicate,
-/// leaving other elements untransformed
-func mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, transform: S.Generator.Element -> S.Generator.Element, ifIndex: Int -> Bool) -> C {
+// unlike with mapSome, mapIfIndex and mapEveryNth functions don't use the second template in
+// their arguments, only in their return type, so the "overload to default to []"
+// approach doesn't work unfortunately.  debtatable whether this means they should
+// return an ExtensibleCollection (more useful) or an Array (like in the Swift std lib)
+//
+// as a compromise, here are versions that map from/to the same collection type, so
+// e.g. [T] -> [T] defaults, though T...T -> [T] doesn't
+
+// private implementation, to be called by public versions, to avoid recursion
+private func _mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, transform: S.Generator.Element -> S.Generator.Element, ifIndex: Int -> Bool) -> C {
     var result = C()
     for (index,value) in enumerate(source) {
         if ifIndex(index) {
@@ -33,10 +40,32 @@ func mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.E
     return result
 }
 
-/// Map only every nth element of a sequence, leaving other elements untransformed
-public func mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, n: Int, transform: S.Generator.Element -> C.Generator.Element) -> C {
+/// Map only those values if their index in the sequence matches a predicate,
+/// leaving other elements untransformed
+public func mapIfIndex<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, transform: S.Generator.Element -> S.Generator.Element, ifIndex: Int -> Bool) -> C {
+        return _mapIfIndex(source,transform,ifIndex)
+}
+
+/// Map only those values if their index in the sequence matches a predicate,
+/// leaving other elements untransformed
+public func mapIfIndex<C: ExtensibleCollectionType>(source: C, transform: C.Generator.Element -> C.Generator.Element, ifIndex: Int -> Bool) -> C {
+    return _mapIfIndex(source, transform, ifIndex)
+}
+
+// private implementation, to be called by public versions, to avoid recursion
+private func _mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, n: Int, transform: S.Generator.Element -> C.Generator.Element) -> C {
     let isNth = isMultipleOf(n) • successor
     return mapIfIndex(source, transform, isNth)
+}
+
+/// Map only every nth element of a sequence, leaving other elements untransformed
+public func mapEveryNth<S: SequenceType, C: ExtensibleCollectionType where S.Generator.Element == C.Generator.Element>(source: S, n: Int, transform: S.Generator.Element -> C.Generator.Element) -> C {
+        return _mapEveryNth(source, n, transform)
+}
+
+/// Map only every nth element of a sequence, leaving other elements untransformed
+public func mapEveryNth<C: ExtensibleCollectionType>(source: C, n: Int, transform: C.Generator.Element -> C.Generator.Element) -> C {
+    return _mapEveryNth(source, n, transform)
 }
 
 /// Return an collection containing the results of mapping `combine`
@@ -68,8 +97,95 @@ public func accumulate<S: SequenceType, U>
     return accumulate(source, initial, combine)
 }
 
+/// Returns the first index where matche `match(element)` returns `true`, or `nil` if
+/// `value` is not found.
+///
+/// Complexity: O(\ `countElements(domain)`\ )
+public func find<C : CollectionType>(domain: C, match: C.Generator.Element->Bool) -> C.Index? {
+    for idx in indices(domain) {
+        if match(domain[idx]) {
+            return idx
+        }
+    }
+    return nil
+}
+
+/// A sequence of pairs of optionals built out of two underlying sequences,
+/// where the elements of the `i`\ th pair are the `i`\ th elements of each
+/// underlying sequence.  Where one sequence is longer than the other, the 
+/// other half of the pair will be padded with nil.
+public struct ZipLonger2<S1: SequenceType, S2: SequenceType>: SequenceType {
+    private let _s1: S1
+    private let _s2: S2
+    init(_ s1: S1, _ s2: S2) {
+        _s1 = s1
+        _s2 = s2
+    }
+    
+    public typealias Generator = GeneratorOf<(S1.Generator.Element?, S2.Generator.Element?)>
+    
+    public func generate() -> Generator {
+        // the requirement to never call .next() a second time
+        // complicates this quite a lot
+        var g1: S1.Generator? = _s1.generate()
+        var g2: S2.Generator? = _s2.generate()
+        return GeneratorOf {
+            switch(g1?.next(),g2?.next()) {
+            case (.None,.None): return nil // both generators are exhausted
+            case let (.Some(x),.None): g2 = nil; return (x,nil)
+            case let (.None,.Some(y)): g1 = nil; return (nil,y)
+            case (let x, let y): return (x,y)
+            }
+        }
+    }
+}
+
+
+/// Return true iff `a1` and `a2` contain equivalent elements, using
+/// `isEquivalent` as the equivalence test.  Requires: `isEquivalent`
+/// is an `equivalence relation
+/// <http://en.wikipedia.org/wiki/Equivalence_relation>`_
+//
+// Only here because the std lib version of equal requires the two
+// sequence's element types be the same when really they don't have to be
+// the std lib equal that takes a comparator requires the sequences contain the same
+// type, which shouldn't be necessary since the comparator could cater for that
+public func equal<S1: SequenceType, S2: SequenceType>(a1: S1, a2: S2, isEquivalent: (S1.Generator.Element, S2.Generator.Element) -> Bool) -> Bool {
+    for pair in ZipLonger2(a1, a2) {
+        switch pair {
+        case (.None,.None): assertionFailure("should never happen")
+        case (.None, .Some): return false
+        case (.Some, .None): return false
+        case let (.Some(x),.Some(y)): if !isEquivalent(x,y) { return false }
+        }
+    }
+    return true
+}
+
+
+/// Removes an element from a collection if `removeElement` returns `true`
+public func remove
+    <C: protocol<RangeReplaceableCollectionType, MutableCollectionType>>
+    (inout col: C, removeElement: C.Generator.Element -> Bool) {
+        // find the first entry to remove
+        if var advance = find(col, removeElement) {
+            // advance points to next element to test,
+            // rear points to where to copy it to
+            // if it's a keeper
+            var rear = advance++
+            while advance != col.endIndex {
+                if !removeElement(col[advance]) {
+                    col[rear] = col[advance]
+                    ++rear
+                }
+                ++advance
+            }
+            col.removeRange(rear..<col.endIndex)
+        }
+}
+
 /// Removes an equatable element from a collection
-func remove
+public func remove
     <C: protocol<RangeReplaceableCollectionType,
                  MutableCollectionType>,
      E: Equatable
