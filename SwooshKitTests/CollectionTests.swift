@@ -78,6 +78,15 @@ class SwooshKitCollectionTests: XCTestCase {
         XCTAssertFalse(equal([1,2,3], ["1","3","3"], eqIntString))
     }
     
+    func testZipWith() {
+        let a = zipWith(1...10, Repeat(count: 10, repeatedValue: 1), +) as ContiguousArray
+        XCTAssert(equal(a, 2...11))
+        
+        let funcs: [Int->Int] = [id, double]
+        let b = zipWith(1...10, cycle(funcs), |> )
+        XCTAssert(equal(b, [1,4,3,8,5,12,7,16,9,20]))
+    }
+    
     func testLuhnAlgo() {
         // happens to use several of the functions in this library so good to
         // detect weird type inference issues

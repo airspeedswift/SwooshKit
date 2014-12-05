@@ -43,3 +43,10 @@ public func sum<S: SequenceType where S.Generator.Element: IntegerType>(nums: S)
 // thoroughly non-internationalized
 public let isVowel = { contains("eaoiu", $0) }
 public let isConsonant = { !contains("eaoiu", $0) }
+
+
+/// A function that does but return its input
+public func id<T>(t: T) -> T {
+    return t
+}
+

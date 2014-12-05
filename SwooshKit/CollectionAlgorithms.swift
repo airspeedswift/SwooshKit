@@ -224,4 +224,42 @@ public func dropFirst<S: SequenceType>(seq: S) -> SequenceOf<S.Generator.Element
     }
 }
 
+/// Function to turn a finite sequence into an infinite repeating sequence
+public func cycle<S: SequenceType>(source: S) -> SequenceOf<S.Generator.Element> {
+    return SequenceOf { _->GeneratorOf<S.Generator.Element> in
+        var g = source.generate()
+        return GeneratorOf {
+            if let x = g.next() {
+                return x
+            }
+            else {
+                g = source.generate()
+                if let y = g.next() {
+                    return y
+                }
+                else {
+                    // maybe assert here, if you want that behaviour
+                    // when passing an empty sequence into cycle
+                    return nil
+                }
+            }
+        }
+    }
+}
+
+/// Combine the corresponding elements from two sequences using a given function, 
+/// to produce a collection of the results
+public func zipWith<S1: SequenceType, S2: SequenceType, C: ExtensibleCollectionType>(s1: S1, s2: S2, combine: (S1.Generator.Element,S2.Generator.Element) -> C.Generator.Element) -> C {
+    var result = C()
+    for pair in Zip2(s1,s2) {
+        result.append(combine(pair))
+    }
+    return result
+}
+
+/// Combine the corresponding elements from two sequences using a given function,
+/// to produce an array of the results
+public func zipWith<S1: SequenceType, S2: SequenceType, T>(s1: S1, s2: S2, combine: (S1.Generator.Element,S2.Generator.Element) -> T) -> [T] {
+    return zipWith(s1,s2,combine)
+}
 
