@@ -227,11 +227,6 @@ public func reverse<C: CollectionType where C.Index: BidirectionalIndexType>(sou
     return source.reverse()
 }
 
-// note, LazyRandomAccessCollection.reverse returns a LazyBidirectionalCollection NOT another LazyRandomAccessCollection
-public func reverse<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>) -> LazyBidirectionalCollection<RandomAccessReverseView<C>> {
-    return source.reverse()
-}
-
 public func map<S: SequenceType, U>(source: LazySequence<S>, transform: (S.Generator.Element)->U) -> LazySequence<MapSequenceView<S,U>> {
     return source.map(transform)
 }
@@ -295,4 +290,128 @@ public func mapEveryNth<C: CollectionType where C.Index: BidirectionalIndexType>
 public func mapEveryNth<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>, transform: (C.Generator.Element)->C.Generator.Element, ifIndex: Int -> Bool) -> LazySequence<MapSequenceView<EnumerateSequence<LazyRandomAccessCollection<C>>,C.Generator.Element>> {
     return source.mapIfIndex(transform, ifIndex)
 }
+
+
+
+
+
+
+
+/// A re-implementation of Swift.ReverseRandomAccessIndex, which currently only has
+/// private constructor, so cannot be used to fix the issue that LazyRandomAccessCollection.reverse
+/// returns a bidirectional collection not a random-access one
+public struct SWKReverseRandomAccessIndex<I : RandomAccessIndexType> : RandomAccessIndexType {
+    
+    private let _base: I
+    private init(_ base: I) {
+        _base = base
+    }
+    
+    public typealias Distance = I.Distance
+    
+    /// Returns the next consecutive value after `self`.
+    ///
+    /// Requires: the next value is representable.
+    public func successor() -> SWKReverseRandomAccessIndex<I> {
+        return SWKReverseRandomAccessIndex(_base.predecessor())
+    }
+    
+    /// Returns the previous consecutive value before `self`.
+    ///
+    /// Requires: the previous value is representable.
+    public func predecessor() -> SWKReverseRandomAccessIndex<I> {
+        return SWKReverseRandomAccessIndex(_base.successor())
+    }
+    
+    /// Return the minimum number of applications of `successor` or
+    /// `predecessor` required to reach `other` from `self`.
+    ///
+    /// Complexity: O(1).
+    public func distanceTo(other: SWKReverseRandomAccessIndex<I>) -> I.Distance {
+        return _base.distanceTo(other._base) * -1
+    }
+    
+    /// Return `self` offset by `n` steps.
+    ///
+    /// :returns: If `n > 0`, the result of applying `successor` to
+    /// `self` `n` times.  If `n < 0`, the result of applying
+    /// `predecessor` to `self` `-n` times. Otherwise, `self`.
+    ///
+    /// Complexity: O(1)
+    public func advancedBy(amount: I.Distance) -> SWKReverseRandomAccessIndex<I> {
+        let inverse = amount * -1
+        return SWKReverseRandomAccessIndex(_base.advancedBy(inverse))
+    }
+}
+
+
+public func ==<I>(lhs: SWKReverseRandomAccessIndex<I>, rhs: SWKReverseRandomAccessIndex<I>) -> Bool {
+    return true
+}
+
+/// A re-implementation of Swift.RandomAccessReverseView, which currently only has
+/// private constructor, so cannot be used to fix the issue that LazyRandomAccessCollection.reverse
+/// returns a bidirectional collection not a random-access one
+public struct SWKRandomAccessReverseView<T : CollectionType where T.Index : RandomAccessIndexType> : CollectionType {
+    
+    private let _base: T
+    
+    private init(_ base: T) {
+        _base = base
+    }
+    
+    /// A type that represents a valid position in the collection.
+    ///
+    /// Valid indices consist of the position of every element and a
+    /// "past the end" position that's not valid for use as a subscript.
+    public typealias Index = SWKReverseRandomAccessIndex<T.Index>
+    
+    /// A type whose instances can produce the elements of this
+    /// sequence, in order.
+    typealias Generator = IndexingGenerator<SWKRandomAccessReverseView<T>>
+    
+    /// Return a *generator* over the elements of this *sequence*.
+    ///
+    /// Complexity: O(1)
+    public func generate() -> IndexingGenerator<SWKRandomAccessReverseView<T>> {
+        return IndexingGenerator(self)
+    }
+    
+    /// The position of the first element in a non-empty collection.
+    ///
+    /// Identical to `endIndex` in an empty collection.
+    public var startIndex: Index {
+        return Index(_base.endIndex.predecessor())
+    }
+    
+    /// The collection's "past the end" position.
+    ///
+    /// `endIndex` is not a valid argument to `subscript`, and is always
+    /// reachable from `startIndex` by zero or more applications of
+    /// `successor()`.
+    public var endIndex: Index {
+        // this is probably no good as an implementation, since
+        // certain implementations of indices might not cope
+        // with going backwards one from the start.
+        return Index(_base.startIndex.predecessor())
+    }
+    
+    public subscript (position: Index) -> T.Generator.Element {
+        return _base[position._base]
+    }
+}
+
+extension LazyRandomAccessCollection {
+    /// A version of reverse that returns a random-access colleciton
+    func rreverse() -> LazyRandomAccessCollection<SWKRandomAccessReverseView<LazyRandomAccessCollection<S>>> {
+        return lazy(SWKRandomAccessReverseView(self))
+    }
+}
+
+// note, LazyRandomAccessCollection.reverse returns a LazyBidirectionalCollection NOT another LazyRandomAccessCollection, so here we call rreverse instead
+public func reverse<C: CollectionType where C.Index: RandomAccessIndexType>(source: LazyRandomAccessCollection<C>) -> LazyRandomAccessCollection<SWKRandomAccessReverseView<LazyRandomAccessCollection<C>>> {
+    return source.rreverse()
+}
+
+
 
