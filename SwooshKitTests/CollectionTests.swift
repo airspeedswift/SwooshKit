@@ -126,6 +126,8 @@ class SwooshKitCollectionTests: XCTestCase {
             • sum
             • { mapEveryNth($0, 2, doubleAndCombine) }
             // TODO: figure out why the `as` is needed here
+            // Looks like a bug in the type inference...
+            // String->Int? compiles, but explodes at runtime
             • { mapSome($0, toInt as Character->Int?) }
             • reverse
             • lazy
@@ -151,4 +153,15 @@ class SwooshKitCollectionTests: XCTestCase {
         XCTAssert(equal([],dropFirst(stride(from: 1, to: 2, by: 1))))
         XCTAssert(equal([],dropFirst(stride(from: 1, to: 1, by: 1))))
     }
+
+    func testLazyReverse() {
+        let l = lazy(1...5)
+        XCTAssertEqual("Swift.LazyBidirectionalCollection", reflect(l.reverse()).summary, "LazyRandomAccessCollection.reverse no longer returns a bi-directional collection")
+        XCTAssertEqual("Swift.LazyRandomAccessCollection",reflect(l).summary)
+        let r = reverse(l)
+        XCTAssertEqual("Swift.LazyRandomAccessCollection",reflect(r).summary)
+        
+        XCTAssert(equal([5,4,3,2,1], r.array))
+    }
+    
 }
