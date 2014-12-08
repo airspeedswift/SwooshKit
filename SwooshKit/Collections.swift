@@ -24,15 +24,15 @@ extension Dictionary {
 }
 
 /// View that allows you to treate a tuple as a read-only collection
-struct TupleCollectionView<T>: CollectionType {
+public struct TupleCollectionView<T>: CollectionType {
     private let _mirror: MirrorType
     init(_ tuple: T) {
         _mirror = reflect(tuple)
     }
     
-    var startIndex: Int { return 0 }
+    public var startIndex: Int { return 0 }
     
-    var endIndex: Int {
+    public var endIndex: Int {
         switch _mirror.disposition {
         case .Tuple:
             return _mirror.count
@@ -41,7 +41,7 @@ struct TupleCollectionView<T>: CollectionType {
         }
     }
     
-    subscript(idx: Int) -> Any {
+    public subscript(idx: Int) -> Any {
         switch _mirror.disposition {
         case .Tuple:
             let (_, val) = _mirror[idx]
@@ -51,38 +51,38 @@ struct TupleCollectionView<T>: CollectionType {
         }
     }
     
-    typealias GeneratorType
+    public typealias GeneratorType
         = IndexingGenerator<TupleCollectionView>
     
-    func generate() -> GeneratorType {
+    public func generate() -> GeneratorType {
         return IndexingGenerator(self)
     }
 }
 
 /// View that presents a collection of a subrange of another collection
-struct SubrangeCollectionView<Base: CollectionType>: CollectionType {
+public struct SubrangeCollectionView<Base: CollectionType>: CollectionType {
     private let _base: Base
     private let _range: Range<Base.Index>
-    init(_ base: Base, subrange: Range<Base.Index>) {
+    public init(_ base: Base, subrange: Range<Base.Index>) {
         _base = base
         _range = subrange
     }
     
-    var startIndex: Base.Index {
+    public var startIndex: Base.Index {
         return _range.startIndex
     }
-    var endIndex: Base.Index {
+    public var endIndex: Base.Index {
         return _range.endIndex
     }
     
-    subscript(idx: Base.Index)
+    public subscript(idx: Base.Index)
         -> Base.Generator.Element {
             return _base[idx]
     }
     
-    typealias Generator
+    public typealias Generator
         = IndexingGenerator<SubrangeCollectionView>
-    func generate() -> Generator {
+    public func generate() -> Generator {
         return IndexingGenerator(self)
     }
 }
