@@ -26,7 +26,7 @@ extension Dictionary {
 /// View that allows you to treate a tuple as a read-only collection
 public struct TupleCollectionView<T>: CollectionType {
     private let _mirror: MirrorType
-    init(_ tuple: T) {
+    public init(_ tuple: T) {
         _mirror = reflect(tuple)
     }
     
